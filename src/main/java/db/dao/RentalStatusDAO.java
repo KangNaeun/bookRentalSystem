@@ -271,6 +271,7 @@ public class RentalStatusDAO {
 		return rentalList;
 	}
 	
+	// 대여 현황 조회(대여 날짜 범위내)
 	public List<RentalStatusDTO> selectRentalByStartDateEndDate(String startDate, String endDate) {
 		
 		List<RentalStatusDTO> rentalList = null;

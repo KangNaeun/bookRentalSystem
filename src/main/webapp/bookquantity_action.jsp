@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%	 
+<%	
 		request.setCharacterEncoding("UTF-8");	//문자 인코딩 설정 - 한글깨짐 방지
-		System.out.println(request.getParameter("b_bookno"));		//request - 요청 , response - 응답 
+		System.out.println(request.getParameter("b_bookno"));		
 		System.out.println(request.getParameter("b_bcount"));
 		
 		//request.getParameter 결과 -> String
@@ -20,7 +20,6 @@
 	
 		BookDAO bookDAO = new BookDAO();
 		
-		//낱개 저장
  		int result = bookDAO.setbookquantity(bcount, bookno);
 	
 		if ( result > 0 ){

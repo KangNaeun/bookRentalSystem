@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body> 
+<body>
 	<%	
 		request.setCharacterEncoding("UTF-8");	//문자 인코딩 설정 - 한글깨짐 방지
 		System.out.println(request.getParameter("empno"));		//request - 요청 , response - 응답 
@@ -19,8 +19,6 @@
 		String message = request.getParameter("message");
 	
 		BookDAO bookDAO = new BookDAO();
-		
-		//낱개 저장
  		int result = bookDAO.setCommunity(empno, message);
 	
 		if ( result > 0 ){

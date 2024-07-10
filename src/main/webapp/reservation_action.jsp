@@ -7,20 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body> 
+<body>
 	<%
 		request.setCharacterEncoding("UTF-8");
-	
+		
+		// 도서번호와 회원번호를 파라미터로 받는다.
 		String membnoStr = request.getParameter("rs-membno");
 		String booknoStr = request.getParameter("rs-bookno");
+		// int 타입으로 변환
 		int membno = Integer.parseInt(membnoStr);
 		int bookno = Integer.parseInt(booknoStr);
 		
-		System.out.println("reservation_action.jsp");
-		System.out.println(membno);
-		System.out.println(bookno);
-		
 		ReserveStatusDAO reserveStatusDAO = new ReserveStatusDAO();
+		// 예약 대기를 진행하는 다오 메서드 호출
 		int result = reserveStatusDAO.insertReservation(membno, bookno);
 		
 		if (result == 0) {%>		

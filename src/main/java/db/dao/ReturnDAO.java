@@ -43,7 +43,7 @@ public class ReturnDAO {
 	
 	
 	
-	//반납을 위해 회원번호로 멤버의 대여상태를 rt로 update
+	//반납을 위해 회원번호로 멤버의 대여상태를 '대여중(rt)'으로 수정
 	public int updateMemberStatusToRT(int membno){
 		int updateResult = 0;
 		try {
@@ -161,7 +161,9 @@ public class ReturnDAO {
 
 			conn = DBConnectionManager.connectDB();
 
-			String query = " select count(*) 미반납도서수량 " + " from rental " + " where membno = ? and rstatus_id != 'cp' ";
+			String query = " select count(*) 미반납도서수량 " 
+					+ " from rental where membno = ? "
+					+ " and rstatus_id != 'cp' ";
 
 			psmt = conn.prepareStatement(query);
 			psmt.setInt(1, membno);
@@ -181,7 +183,7 @@ public class ReturnDAO {
 		return countResult;
 	}
 
-	//대여번호로 대여테이블에서 대여상태를 'cp'로 update하고 반납완료날짜를 sysdate로 update
+	//대여번호로 대여테이블에서 대여상태를 반납완료(cp) 및 반납날짜 SYSDATE로 UPDATE
 	public int returnBookAtRentalTable(int rentno) {
 
 		int returnResult = 0;
@@ -189,7 +191,9 @@ public class ReturnDAO {
 
 			conn = DBConnectionManager.connectDB();
 
-			String query = " UPDATE rental " + " SET rstatus_id = 'cp', comp_date = sysdate " + " WHERE rentno = ? ";
+			String query = " UPDATE rental  "
+					+ " SET rstatus_id = 'cp', comp_date = SYSDATE "
+					+ " WHERE rentno = ? ";
 
 			psmt = conn.prepareStatement(query);
 			psmt.setInt(1, rentno);

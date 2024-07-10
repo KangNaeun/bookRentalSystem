@@ -16,7 +16,7 @@ public class BookQuantityRentalStatusDAO {
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	
-	// 리스트로 전체 대여 현황 조회
+	// 리스트로 도서별 재고 및 대여현황 조회
 	public List<BookQuantityRentalStatusDTO> selectAllBookQuantityRentalStatus() {
 		
 		List<BookQuantityRentalStatusDTO> bookQuantityRentalStatusList = null;

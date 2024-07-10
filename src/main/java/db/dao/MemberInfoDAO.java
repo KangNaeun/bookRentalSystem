@@ -63,7 +63,7 @@ public class MemberInfoDAO {
 
 // 회원조회기능 - 고객번호
 	public List<MemberInfoDTO> selectMemberInfo(int membno) {
-
+		
 		List<MemberInfoDTO> memberList = null;
 
 		try {

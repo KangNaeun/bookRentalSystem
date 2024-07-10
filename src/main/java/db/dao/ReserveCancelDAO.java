@@ -76,4 +76,53 @@ public class ReserveCancelDAO {
 
 	    return result;
 	}
+	
+	// 예약취소된 회원의 대여 상태가 'rs'이고 추가 예약건이 없으면 다시 'nrt'로 변경
+	public int insertReserveCancelChangeToNrt(int reserve_id) {
+	    int result = 0;
+
+	    try {
+	        conn = DBConnectionManager.connectDB();
+	        
+	        String query = "DECLARE "
+	        		+ "    v_membno NUMBER; "
+	        		+ "    v_mstatus_id VARCHAR2(3); "
+	        		+ "    v_reserve_id NUMBER := ?; "
+	        		+ "    v_count NUMBER; "
+	        		+ "BEGIN "
+	        		+ "    SELECT membno INTO v_membno "
+	        		+ "    FROM reservation "
+	        		+ "    WHERE reserve_id = v_reserve_id; "
+	        		+ "     "
+	        		+ "    SELECT mstatus_id INTO v_mstatus_id "
+	        		+ "    FROM memberInfo "
+	        		+ "    WHERE membno = v_membno; "
+	        		+ "     "
+	        		+ "    SELECT COUNT(*) INTO v_count "
+	        		+ "    FROM reservation rs, memberInfo m "
+	        		+ "    WHERE rs.membno = m.membno "
+	        		+ "    AND rs.membno = v_membno AND rs.reserve_status NOT IN('예약대기', '예약완료') "
+	        		+ "    AND m.mstatus_id = 'rs'; "
+	        		+ "     "
+	        		+ "    IF v_count = 1 THEN "
+	        		+ "        UPDATE memberInfo "
+	        		+ "        SET mstatus_id = 'nrt' "
+	        		+ "        WHERE membno = v_membno; "
+	        		+ "    END IF; "
+	        		+ "END;";
+
+	        psmt = conn.prepareStatement(query);
+	        psmt.setInt(1, reserve_id);
+
+	        result = psmt.executeUpdate();  //쿼리 DB전달 실행
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBConnectionManager.disconnectDB(conn, psmt, null);
+	    }
+
+	    return result;
+	}
+	
 }

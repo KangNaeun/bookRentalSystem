@@ -15,8 +15,8 @@ public class ReserveStatusDAO {
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	
-public List<ReserveStatusDTO> selectAllReserveStatus() {
-		
+	public List<ReserveStatusDTO> selectAllReserveStatus() {
+			
 		List<ReserveStatusDTO> reserveList = null;
 		
 		try {
@@ -62,6 +62,7 @@ public List<ReserveStatusDTO> selectAllReserveStatus() {
 		return reserveList;
 	}
 
+	// 예약만료내역조회
 	public List<ReserveStatusDTO> selectReserveExpirationStatus() {
 		
 		List<ReserveStatusDTO> reserveList = null;
@@ -121,7 +122,7 @@ public List<ReserveStatusDTO> selectAllReserveStatus() {
 	                + "    "
 	                + "    SELECT membno INTO s_membno "
 	                + "    FROM memberInfo "
-	                + "    WHERE mstatus_id IN ('nrt', 'rt', 'rs') AND membno = v_membno; "
+	                + "    WHERE mstatus_id = 'nrt' AND membno = v_membno; "
 	                + "    "
 	                + "    IF s_membno IS NOT NULL THEN "
 	                + "        UPDATE memberInfo "

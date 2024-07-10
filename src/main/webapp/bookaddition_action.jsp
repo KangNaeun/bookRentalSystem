@@ -24,8 +24,9 @@
 		String bname = request.getParameter("b_bname");
 		String bauthor = request.getParameter("b_bauthor");
 		String bpublish = request.getParameter("b_bpublish");
-		int bprice = Integer.parseInt(request.getParameter("b_bprice"));	//int는 쓸수 없음 대신 integer로 받아서 저장
-		String genrnoSTR = request.getParameter("b_genrno");	//int는 쓸수 없음 대신 integer로 받아서 저장
+		//int는 쓸수 없음 대신 integer로 받아서 저장
+		int bprice = Integer.parseInt(request.getParameter("b_bprice"));	
+		String genrnoSTR = request.getParameter("b_genrno");
 		
 		int genrno = 0;
 		
@@ -49,12 +50,14 @@
 		}
 		
 		String bdate = request.getParameter("b_bdate");
+		// 도서 재고 파라미터 값 저장
 		int bcount = Integer.parseInt(request.getParameter("b_bcount"));
 	
 		BookDAO bookDAO = new BookDAO();
 		
-		//낱개 저장
+		// 도서 추가
 		int result = bookDAO.bookaddition(bname, bauthor, bpublish, bprice, genrno, bdate);
+		// 도서 재고 추가
 		int result2 = bookDAO.bookquantity(bcount);	
 		
 		if ( result > 0 && result2 > 0){

@@ -8,12 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body> 
+<body>
 	<%
 	request.setCharacterEncoding("UTF-8"); //문자 인코딩 설정 한글깨짐 방지
 	
-	String stRentno = request.getParameter("StRentalhiddenId"); //hidden처리된 input창으로 가져온 책 번호
-	System.out.println(stRentno);
+	// 대여번호를 가져옴
+	String stRentno = request.getParameter("StRentalhiddenId");
 	
 	int rentnoInt = 0;
 	if(stRentno != null && stRentno != ""){

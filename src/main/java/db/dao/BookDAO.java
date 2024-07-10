@@ -109,11 +109,13 @@ public class BookDAO {
 		try {
 			conn = DBConnectionManager.connectDB();
 			
-			String query = " SELECT b.bookno, b.bname, b.bauthor, b.bpublish, b.bprice, g.gname, "
-							+ " 	TO_CHAR(b.bdate, 'YYYY-MM-DD') bdate "
-							+ " 	, bq.bcount "
+			String query = " SELECT b.bookno, b.bname, b.bauthor, "
+							+ " b.bpublish, b.bprice, g.gname, "
+							+ " TO_CHAR(b.bdate, 'YYYY-MM-DD') bdate "
+							+ " , bq.bcount "
 							+ " FROM book b, genre g, book_quantity bq "
-							+ " WHERE b.genrno = g.genrno and b.bookno = bq.bookno order by b.bookno ";
+							+ " WHERE b.genrno = g.genrno and "
+							+ " b.bookno = bq.bookno order by b.bookno ";
 			
 			psmt = conn.prepareStatement(query);
 
@@ -346,17 +348,18 @@ public class BookDAO {
 							+ " 	TO_CHAR(b.bdate, 'YYYY-MM-DD') bdate "
 							+ " 	, bq.bcount "
 							+ " FROM book b, genre g, book_quantity bq "
-							+ " WHERE b.genrno = g.genrno and b.bookno = bq.bookno "
-							+ " 	 and g.gname = ? order by b.bookno ";
+							+ " WHERE b.genrno = g.genrno "
+							+ " AND b.bookno = bq.bookno "
+							+ " AND g.gname = ? ORDER BY b.bookno ";
 			
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, gname);
-
+			
 			rs = psmt.executeQuery(); // 쿼리 DB전달 실행
 			
 		while (rs.next()){			
-				if (bookList == null) 
-					bookList = new ArrayList<Book2DTO>();
+			if (bookList == null) 
+				bookList = new ArrayList<Book2DTO>();
 			
 			Book2DTO book = new Book2DTO();
 			

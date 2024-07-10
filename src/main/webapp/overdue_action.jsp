@@ -9,12 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<% 
+	<%
 		//연체 현황 조회(연체 처리 로직)
 		request.setCharacterEncoding("UTF-8"); //문자 인코딩 설정 한글깨짐 방지
 
+		// 연체도서에 대여번호(파리미터 값)을/를 변수에 저장
 		String returnNo = request.getParameter("OdRentalhiddenId");
-		System.out.println("연체 처리 로직으로 이동");
 		
 		RentalDAO rentalDAO = null;
 		int overdueResult = 0; //대여테이블에서의 연체처리
